@@ -1,0 +1,1 @@
+from lab2_submission.wordseg.tools.tools import *

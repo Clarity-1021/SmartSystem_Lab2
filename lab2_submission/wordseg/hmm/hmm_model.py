@@ -1,13 +1,13 @@
-DATASET_NUM = '1'
-PI_SAVE_PATH = DATASET_NUM + '/pi.py'
-A_SAVE_PATH = DATASET_NUM + '/a.py'
-B_SAVE_PATH = DATASET_NUM + '/b.py'
-K_SAVE_PATH = DATASET_NUM + '/k.py'
+DATASET_NUM = '3'
+# PI_SAVE_PATH = DATASET_NUM + '/pi.py'
+# A_SAVE_PATH = DATASET_NUM + '/a.py'
+# B_SAVE_PATH = DATASET_NUM + '/b.py'
+# K_SAVE_PATH = DATASET_NUM + '/k.py'
 
-# PI_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/pi.py'
-# A_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/a.py'
-# B_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/b.py'
-# K_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/k.py'
+PI_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/pi.py'
+A_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/a.py'
+B_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/b.py'
+K_SAVE_PATH = 'wordseg/hmm/' + DATASET_NUM + '/k.py'
 
 S = ['S', 'B', 'I', 'E']  # Set of states
 
@@ -24,7 +24,7 @@ B = load_data(B_SAVE_PATH)
 K = load_data(K_SAVE_PATH)
 
 # sentence = '今天天气怎么样'
-sentence = '《东方书林之旅》告诉你什么叫出版策划——书海弄潮儿'
+# sentence = '《东方书林之旅》告诉你什么叫出版策划——书海弄潮儿'
 # sentence = '构成了近年来中国图书市场最抢眼的一道风景线。'
 # sentence = '从１９９２年人民出版社成立策划室并由方鸣任主任开始，作为出版策划的倡言者，方鸣搞了一系列的出版策划行动，其中首推最近几年陆续出版的令出版界和读书界为之振奋的《东方书林之旅》。这套由６个书系、２４种学术文化精品图书组成的系列丛书，构成了近年来中国图书市场最抢眼的一道风景线。'
 # sentence = '方鸣认为，策划是对图书进行整体包装，不单单是指书稿内容和装帧设计，还包括市场等。他认为，图书也像人穿衣一样，不仅料子要好，还要做工精致。只有追求精致、精道、精当、精美，才能反映出书的内在价值。譬如《东方书林之旅》，首次采用黄色胶板纸作为内瓤，柔和的米黄色给人一种读书人的儒雅感觉，油然生出一种淡淡的书香气；外封以高级乌光铜板纸精制而成，追求高品质；以优良的牛皮纸制作内封，通过“牛皮纸情结”，使那些从小就习惯用牛皮纸包书皮的学子们产生怀旧感和亲近感。'
@@ -52,8 +52,8 @@ def get_winner(dic):
     return state
 
 
-def predict():
-# def predict(sentence):
+# def predict():
+def predict(sentence):
     sentence.encode(encoding='utf-8',errors='ignore')
     sentence_len = len(sentence)
     if sentence_len == 1:
@@ -66,31 +66,22 @@ def predict():
         V[state] = PI[state] * B[state].get(sentence[0], 0)
         path[state] = [state]
     V_norm = normalization(V)
-    winner = get_winner(V_norm)
     for t in range(1, sentence_len):
-        # V.append({})
+        if sentence[t] not in K:
+            print('miss:' + sentence[t])
         V = {}
         new_path = {}
         for cur_state in S:
-            if sentence[t] not in B['S'] \
-                    and sentence[t] not in B['B']\
-                    and sentence[t] not in B['I']\
-                    and sentence[t] not in B['E']:
-                print('miss:' + sentence[t])
-            # print(sentence[t])
-            # print(V_norm)
             V_list = []
             for last_state in S:
                 if V_norm[last_state] > 0:
                     if sentence[t] not in K:
-                        # state_left = path[-1]
-                        # (prob, state_left) = max((V[s], s) for s in S)
-                        if winner == 'S' or winner == 'E':
+                        if last_state == 'S' or last_state == 'E':
                             if cur_state == 'B' or cur_state == 'S':
                                 emit_prop = 0.00000001
                             else:
                                 emit_prop = 0.0
-                        elif winner == 'I':
+                        elif last_state == 'I':
                             if cur_state == 'I' or cur_state == 'S':
                                 emit_prop = 0.00000001
                             else:
@@ -104,19 +95,15 @@ def predict():
                         emit_prop = B[cur_state].get(sentence[t], 0)
                     cur_prop = V_norm[last_state] * A[last_state][cur_state] * emit_prop
                     V_list.append((cur_prop, last_state))
-                    # pass
             (prob, state) = max(V_list)
-            # (prob, state) = max([(V_norm[last_state] * A[last_state][cur_state] * B[cur_state].get(sentence[t], 0), last_state) for last_state in S if V_norm[last_state] > 0])
             V[cur_state] = prob
             new_path[cur_state] = path[state] + [cur_state]
         V_norm = normalization(V)
-        winner = get_winner(V_norm)
         path = new_path
-    # print(prob)
-    print(''.join(path[winner]))
-    # print('SBEBIIESBESBESBEBEBEBEBEB')
-    print('SBEBESSSBESBESBEBEBEBEBEB')
-    return path[winner]
+    winner = get_winner(V_norm)
+    # print(''.join(path[winner]))
+    # print('SBEBESSSBESBESBEBEBEBEBEB')
+    return ''.join(path[winner])
 
 
-predict()
+# predict()

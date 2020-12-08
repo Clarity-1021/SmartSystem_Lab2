@@ -47,7 +47,12 @@ class Solution:
     # CRF 模型的预测接口
     # --------------------
     def crf_predict(self, sentences: List[str]) -> List[str]:
-        pass
+        from lab2_submission.wordseg.crf.crf_model import predict
+        results = []
+        for sent in sentences:
+            results.append(predict(sent))
+        return results
+        # pass
 
     # --------------------
     # DNN 模型的预测接口

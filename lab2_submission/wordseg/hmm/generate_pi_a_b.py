@@ -1,4 +1,4 @@
-DATASET_NUM = '1'
+DATASET_NUM = '3'
 TRAIN_PATH = '../../../dataset/dataset' + DATASET_NUM + '/train.utf8'
 PI_SAVE_PATH = DATASET_NUM + '/pi.py'
 A_SAVE_PATH = DATASET_NUM + '/a.py'
