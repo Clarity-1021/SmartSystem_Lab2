@@ -3,12 +3,12 @@ from lab2_submission.wordseg.crf.crf import *
 
 
 def predict(sentence):
-    TEMPLATE_PATH = 'wordseg/crf2/' + 'template_4.utf8'
+    TEMPLATE_PATH = 'wordseg/crf/' + 'template_4.utf8'
     SAVE_NAME = '10_4_U'
     LAB_NUM = '1'
     EPOCH = '8'
     RIGHT_RATE = '73.273'
-    B_LOAD_PATH = 'wordseg/crf2/' + SAVE_NAME + '/' + LAB_NUM + '/b_trained_' + EPOCH + '_' + RIGHT_RATE + '%.py'
+    B_LOAD_PATH = 'wordseg/crf/' + SAVE_NAME + '/' + LAB_NUM + '/b_trained_' + EPOCH + '_' + RIGHT_RATE + '%.py'
     Uni_t = []
     Bi_t = []
     B = load_data(B_LOAD_PATH)
