@@ -3,13 +3,13 @@ from lab2_submission.wordseg.tools.tools import *
 
 if __name__ == '__main__':
 
-    TEST_DATASET_NUM = '11'
+    TEST_DATASET_NUM = '6'
     TEST_PATH = '../../../dataset/dataset' + TEST_DATASET_NUM + '/train.utf8'
     TEMPLATE_PATH = 'template_4.utf8'
     SAVE_NAME = '10_4_U'
-    LAB_NUM = '1'
-    EPOCH = '8'
-    RIGHT_RATE = '73.273'
+    LAB_NUM = '2'
+    EPOCH = '11'
+    RIGHT_RATE = '74.593'
     B_LOAD_PATH = SAVE_NAME + '/' + LAB_NUM + '/b_trained_' + EPOCH + '_' + RIGHT_RATE + '%.py'
     Uni_t = []
     Bi_t = []
