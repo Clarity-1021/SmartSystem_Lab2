@@ -1,9 +1,11 @@
 from lab2_submission.wordseg.tools.tools import *
 
-DATASET_NUM = '6'
-SAVE_NUM = '9'
-TRAIN_PATH = '../../../dataset/dataset' + DATASET_NUM + '/train.utf8'
-SAVE_DATA_SET_PATH = SAVE_NUM + '/develop_set.py'
+DATASET_NUM = '30'
+# SAVE_NUM = '9'
+# TRAIN_PATH = 'dataset_' + DATASET_NUM + '/train/train.utf8'
+TRAIN_PATH = 'dataset_' + DATASET_NUM + '/develop/develop.utf8'
+# SAVE_DATA_SET_PATH = 'dataset_' + DATASET_NUM + '/train_set.py'
+SAVE_DATA_SET_PATH = 'dataset_' + DATASET_NUM + '/develop_set.py'
 data_set = []
 
 print('generate data...')

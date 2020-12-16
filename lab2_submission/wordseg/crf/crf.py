@@ -185,8 +185,8 @@ def predict_feature_gram(lines, gram, B):
             result += 1
         else:
             update_feature(O[i], P[i], lines, i, gram, B)
-            if i + 1 < sent_len:
-                update_trans_feature(O[i], P[i], O[i + 1], B)
+            # if i + 1 < sent_len:
+            #     update_trans_feature(O[i], P[i], O[i + 1], B)
     return result
 
 

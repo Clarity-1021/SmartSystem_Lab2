@@ -3,14 +3,17 @@ from lab2_submission.wordseg.tools.tools import *
 
 if __name__ == '__main__':
 
-    TEST_DATASET_NUM = '6'
-    TEST_PATH = '../../../dataset/dataset' + TEST_DATASET_NUM + '/train.utf8'
-    TEMPLATE_PATH = 'template_4.utf8'
-    SAVE_NAME = '10_4_U'
-    LAB_NUM = '2'
-    EPOCH = '11'
-    RIGHT_RATE = '74.593'
-    B_LOAD_PATH = SAVE_NAME + '/' + LAB_NUM + '/b_trained_' + EPOCH + '_' + RIGHT_RATE + '%.py'
+    TRAIN_DATASET_NUM = '30'
+    LAB_NUM = '1/'
+    TEMPLATE_NUM = '10'
+    DATA_PATH = 'dataset_' + TRAIN_DATASET_NUM + '/'
+    SAVE_NAME = 'U_' + TEMPLATE_NUM + '/'
+    TEST_PATH = DATA_PATH + 'test/test1.utf8'
+    TEMPLATE_PATH = 'templates/template_' + TEMPLATE_NUM + '.utf8'
+    EPOCH = '91'
+    RIGHT_RATE = '91.032'
+    B_LOAD_PATH = DATA_PATH + SAVE_NAME + LAB_NUM + 'b_trained_' + EPOCH + '_' + RIGHT_RATE + '%.py'
+
     Uni_t = []
     Bi_t = []
     print('load features...')
@@ -31,5 +34,11 @@ if __name__ == '__main__':
         test_sentences = file.read().split('\n\n')
 
     print('start predict...')
-    test_right_rate = predict_test_set(test_sentences, Uni_t, B)
-    print('test_right_rate = %.3f%%' % (test_right_rate * 100))
+    # test_right_rate = predict_test_set(test_sentences, Uni_t, B)
+    for (index, sentence) in enumerate(test_sentences):
+        test_tuple = sentence.split()
+        print('[', index, ']:')
+        print('句子=', test_tuple[0])
+        print('实际=', test_tuple[1])
+        print('预测=', predict_sentence(test_tuple[0], Uni_t, B))
+    # print('test_right_rate = %.3f%%' % (test_right_rate * 100))

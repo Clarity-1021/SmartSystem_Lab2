@@ -229,14 +229,17 @@ class BiLSTM_CRF(nn.Module):
 def predict_right_rate(datas, model, word_to_ix, tag_to_ix):
     right_count = 0
     word_size = 0
+    average_loss = 0
+    sent_len = len(datas)
     with torch.no_grad():
-        for data_t in datas:
+        for sentence, tags in datas:
             # gold_tags = data_t[1]
-            precheck_sent = prepare_sequence(data_t[0], word_to_ix)
-            precheck_tags = torch.Tensor([tag_to_ix[t] for t in data_t[1]])
-            (tensor_num, pridict_tags) = model(precheck_sent)
+            sentence_in = prepare_sequence(sentence, word_to_ix)
+            targets = torch.Tensor([tag_to_ix[t] for t in tags])
+            (tensor_num, pridict_tags) = model(sentence_in)
+            average_loss += model.neg_log_likelihood(sentence_in, targets)
             # b = torch.Tensor(pridict_tags)
             # a = precheck_tags.eq(torch.Tensor(pridict_tags)).numpy().sum()
-            right_count += precheck_tags.eq(torch.Tensor(pridict_tags)).numpy().sum()
-            word_size += len(data_t[1])
-    return right_count / word_size
+            right_count += targets.eq(torch.Tensor(pridict_tags)).numpy().sum()
+            word_size += len(tags)
+    return right_count / word_size, average_loss / sent_len

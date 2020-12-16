@@ -1,12 +1,16 @@
 from lab2_submission.wordseg.tools.tools import *
 
-DATASET_NUM = '10'
-TRAIN_PATH = '../../../dataset/dataset' + DATASET_NUM + '/train.utf8'
-TEMPLATE_PATH = 'template_4.utf8'
-SAVE_NAME = '10_4_U'
-B_SAVE_PATH = SAVE_NAME + '/b.py'
+DATASET_NUM = '30'
+# SAVE_NUM = '9'
+TRAIN_PATH = 'dataset_' + DATASET_NUM + '/train/train.utf8'
+TEMPLATE_NUM = '11'
+TEMPLATE_PATH = 'templates/template_' + TEMPLATE_NUM + '.utf8'
+SAVE_NAME = 'U_' + TEMPLATE_NUM
+B_SAVE_PATH = 'dataset_' + DATASET_NUM + '/' + SAVE_NAME + '/b.py'
+data_set = []
 
-S = ['S', 'B', 'I', 'E']  # 状态
+
+S = ['S', 'B', 'I', 'E']  # 状态z
 Uni_t = []
 Bi_t = []
 B = []

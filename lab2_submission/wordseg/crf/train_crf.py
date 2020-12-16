@@ -3,18 +3,19 @@ from lab2_submission.wordseg.crf.crf import *
 
 if __name__ == '__main__':
 
-    TRAIN_DATASET_NUM = '10'
-    DEVELOP_DATASET_NUM = '6'
-    LAB_NUM = '2'
-    TRAIN_PATH = '../../../dataset/dataset' + TRAIN_DATASET_NUM + '/train.utf8'
-    DEVELOP_PATH = '../../../dataset/dataset' + DEVELOP_DATASET_NUM + '/train.utf8'
-    TEMPLATE_PATH = 'template_4.utf8'
-    SAVE_NAME = '10_4_U'
-    B_SAVE_PATH = SAVE_NAME + '/' + LAB_NUM + '/b_trained_'
-    B_LOAD_PATH = '10_4_U/1/b_trained_8_73.273%.py'
-    # B_LOAD_PATH = SAVE_NAME + '/b.py'
-    RT_SAVE_PATH = SAVE_NAME + '/' + LAB_NUM + '/train_right_rate.py'
-    RT_D_SAVE_PATH = SAVE_NAME + '/' + LAB_NUM + '/develop_right_rate.py'
+    TRAIN_DATASET_NUM = '30'
+    LAB_NUM = '1/'
+    TEMPLATE_NUM = '11'
+    DATA_PATH = 'dataset_' + TRAIN_DATASET_NUM + '/'
+    SAVE_NAME = 'U_' + TEMPLATE_NUM + '/'
+    TRAIN_PATH = DATA_PATH + 'train/train.utf8'
+    DEVELOP_PATH = DATA_PATH + 'develop/develop.utf8'
+    TEMPLATE_PATH = 'templates/template_' + TEMPLATE_NUM + '.utf8'
+    B_SAVE_PATH = DATA_PATH + SAVE_NAME + LAB_NUM + 'b_trained_'
+    # B_LOAD_PATH = DATA_PATH + SAVE_NAME + '1/b_trained_53_90.461%.py'
+    B_LOAD_PATH = DATA_PATH + SAVE_NAME + 'b.py'
+    RT_SAVE_PATH = DATA_PATH + SAVE_NAME + LAB_NUM + 'train_right_rate.py'
+    RT_D_SAVE_PATH = DATA_PATH + SAVE_NAME + LAB_NUM + 'develop_right_rate.py'
     Uni_t = []
     Bi_t = []
     print('load features...')
@@ -41,7 +42,7 @@ if __name__ == '__main__':
     max_right = 0.0
     develop_right_rates = []
     right_rates = []
-    for epoch in range(9, 500):
+    for epoch in range(1, 500):
         print('epoch[%d] start...' % (epoch))
         total_right_rate = 0.0
         for sentence in sentences:
